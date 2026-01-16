@@ -1,14 +1,16 @@
-#Download SDK JavaFX
+# Java FX Docker
+
+## Download SDK JavaFX
 
 	https://openjfx.io/
 	
 	Acesse o site oficial e em downloads procure por SDK e seu sistema operacional
 
-#Iniciar o Projeto pelo Maven Archetype
+## Iniciar o Projeto pelo Maven Archetype
 
 	mvn archetype:generate -DgroupId=com.exemplo -DartifactId=meu-projeto -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 	
-#Corrigir o POM
+## Corrigir o POM
 
 	adicione o seguinte trecho antes de Dependencies
 	
@@ -19,7 +21,7 @@
 	    	<exec.mainClass>com.pro.Main</exec.mainClass>
   	</properties>
 
-#Adicionar Dependencias
+## Adicionar Dependencias
 
 	<!-- Dependência JavaFX para controle de interface gráfica -->
 	<dependency>
@@ -34,7 +36,7 @@
 	        <version>21</version>
 	</dependency>
 
-#Adicionar plugin para gerar arquivo JAR com Manifest
+## Adicionar plugin para gerar arquivo JAR com Manifest
 
 	<build>
 	    <plugins>
@@ -54,39 +56,36 @@
 		</plugins>
 	</build>
 
-#Compilar com Maven
+## Compilar com Maven
 
- 	entre no projeto e no nivel do arquivo pom.xml execute
- 	
  	mvn clean package
 
-#Executar Jar
+## Executar Jar
 
- 	aponte o caminho para a pasta lib da SDK que voce baixou
+Aponte o caminho para a pasta lib da SDK que voce baixou
 
- 	java --module-path "/home/lab/openjfx-21.0.8_linux-x64_bin-sdk/javafx-sdk-21.0.8/lib" --add-modules javafx.controls,javafx.graphics,javafx.fxml -jar target/javafx-1.0-SNAPSHOT.jar
+ 	java --module-path "/home/user/openjfx-21.0.8_linux-x64_bin-sdk/javafx-sdk-21.0.8/lib" --add-modules javafx.controls,javafx.graphics,javafx.fxml -jar target/javafx-1.0-SNAPSHOT.jar
 
-#DOCKER
+## DOCKER
 
-#Apos configurar o Dockerfile
+### Apos configurar o Dockerfile
 
 	docker build -t javafx-app .
 
-#Entre no container para analisar nas vezes que estava dando erro
+### Entre no container para analisar nas vezes que estava dando erro
 
 	docker run -it --entrypoint /bin/bash javafx-app
 
-#Para autorizar o Xorg
+### Para autorizar o Xorg
 
 	xhost +local:docker
 
-#Rodar a imagem
+### Rodar a imagem
 
 	docker run -it --env DISPLAY=$DISPLAY --volume /tmp/.X11-unix:/tmp/.X11-unix javafx-app
 	
 	docker run -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix javafx-app
 	
-#Retirar Auth
+### Retirar Auth
 
 	xhost -local:docker
-
